@@ -1,5 +1,5 @@
 import React from 'react';
-import {addTodo} from './todoSlice.js';
+import {addTodo, completeTodo} from './todoSlice.js';
 import {useDispatch, useSelector} from 'react-redux';
 let counter = 0; //Global counter for id
 
@@ -12,9 +12,10 @@ export const Todo = (props) => {
         counter++;
         return counter;
     }
+    
 
     //Handle add button click
-    const handleClick = () => {
+    const handleAddClick = () => {
        const text = document.getElementById('todo_input').value;
         if(text){
         const id = generateId()
@@ -25,6 +26,11 @@ export const Todo = (props) => {
 
         }));
     }
+    }
+
+    const handleDoneClick = (id) => {
+            console.log(id);
+            dispatch(completeTodo(id))
     }
 
     //Select Data
@@ -39,18 +45,44 @@ return(
     <div>
         <div>
             <input type="text" id="todo_input"></input>
-            <button onClick={handleClick}>+</button>
+            <button onClick={handleAddClick}>+</button>
             <button onClick={printState}>PRINT</button>
         </div>
         <div>
             <ul>
-                {data.length > 0 && data.map((data)=>(
-                    <div>
-                        <li>{data.text}</li>
-                        <li>{data.id}</li>
-                        <button>DONE</button>
+                {data.length > 0 && data.map((item, index)=>{
+                if(item.completed===false){
+                    return(
+                    <div key={index}>
+                        <li id={item.id}>
+                            {item.text}
+                        </li>
+                        <li>{item.id}</li>
+                        <button onClick={()=>{handleDoneClick(item.id)}}>DONE</button>  
                     </div>
-                ))}
+                    )
+                }}
+                )
+            }
+            </ul>
+        </div>
+        <div>
+            <h2>COMPLETED</h2>
+            <ul>
+                {data.length > 0 && data.map((item, index)=>{
+                if(item.completed===true){
+                    return(
+                    <div key={index}>
+                        <li id={item.id}>
+                            {item.text}
+                        </li>
+                        <li>{item.id}</li>
+                         
+                    </div>
+                    )
+                }}
+                )
+            }
             </ul>
         </div>
     </div>
