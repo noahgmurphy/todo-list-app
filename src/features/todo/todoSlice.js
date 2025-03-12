@@ -1,5 +1,31 @@
+import {createSlice} from '@reduxjs/toolkit';
+
 const initialTodo = []
+
+///REFACTORING///
+const todoSlice = createSlice({
+    name: 'todo' ,
+    initialState: initialTodo,
+    reducers:{
+        addTodo: (state, action) => {state.push(action.payload)},
+        completeTodo: (state, action) => {
+            console.log(action.payload)
+            return state.map((item)=>item.id===action.payload.id ? {
+                ...item,
+                completed: true 
+            } : item)
+        }
+    }
+})
+
+export const todoReducer = todoSlice.reducer;
+export const {addTodo, completeTodo} = todoSlice.actions;
+
+
+
+
 //addTodo action creator
+/*
 export const addTodo = (obj) =>{
     return{
         type: 'todo/addTodo',
@@ -20,8 +46,8 @@ export const completeTodo = (id) => {
         }
     }
 }
-
-
+*/
+/*
 export const todoReducer = (todo = initialTodo, action) => {
     switch(action.type){
         
@@ -40,3 +66,4 @@ export const todoReducer = (todo = initialTodo, action) => {
         default: return todo;
     }
 }
+*/

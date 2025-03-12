@@ -30,7 +30,7 @@ export const Todo = (props) => {
 
     const handleDoneClick = (id) => {
             console.log(id);
-            dispatch(completeTodo(id))
+            dispatch(completeTodo({id:id}))
     }
 
     //Select Data
@@ -57,7 +57,7 @@ return(
                         <li id={item.id}>
                             {item.text}
                         </li>
-                        <li>{item.id}</li>
+                        
                         <button onClick={()=>{handleDoneClick(item.id)}}>DONE</button>  
                     </div>
                     )
@@ -76,7 +76,7 @@ return(
                         <li id={item.id}>
                             {item.text}
                         </li>
-                        <li>{item.id}</li>
+                        
                          
                     </div>
                     )
