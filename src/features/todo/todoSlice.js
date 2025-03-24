@@ -14,12 +14,21 @@ const todoSlice = createSlice({
                 ...item,
                 completed: true 
             } : item)
+        },
+        addSubtask: (state, action) => {
+            console.log("called");
+            const foundObject = state.find((obj)=>obj.id===action.payload.id);
+            console.log(action.payload);
+            if(!foundObject.subtasks){
+            foundObject.subtasks = [];
+            }
+            foundObject.subtasks.push(action.payload.task); // pushes object from task key NOT OBJECT CONTAINING ANOTHER **TASK** OBJECT
         }
     }
 })
 
 export const todoReducer = todoSlice.reducer;
-export const {addTodo, completeTodo} = todoSlice.actions;
+export const {addTodo, completeTodo, addSubtask} = todoSlice.actions;
 
 
 
