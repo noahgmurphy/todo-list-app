@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {addTodo, completeTodo, addSubtask} from './todoSlice.js';
+import React, {useState, useEffect} from 'react';
+import {addTodo, completeTodo, addSubtask, completeSubtask} from './todoSlice.js';
 import {useDispatch, useSelector} from 'react-redux';
 
 let counter = 0; //Global counter for id
@@ -10,7 +10,7 @@ export const Todo = (props) => {
 
     const[priority, setPriority] = useState();
     const[text, setText] = useState("");
-    const[time, setTime] = useState("00:00");
+    const[time, setTime] = useState("");
     const[subtask, setSubtask] = useState();
     
     //Genertae id from counter
@@ -38,18 +38,33 @@ export const Todo = (props) => {
             time: time
 
         }));
+        setText("");
     }
     }
 
     const handleAddSubtask = (id) =>{
+        const input = document.getElementById("subtaskInput");
+        const subtaskId = generateId();
         console.log(subtask);
-
+        if(subtask){
         dispatch(addSubtask({
             id: id,
             task: {
-                text: subtask
+                text: subtask,
+                id: subtaskId,
+                completed: false
             }
-        }))
+        }))}
+        console.log(subtaskId);
+        setSubtask("");
+        //input.value = "";
+    }
+    const handleCompleteSubtask = (id, subtaskId) => {
+        dispatch(completeSubtask({
+            id:id,
+            subtaskId: subtaskId
+
+        }));
     }
 
     const handleDoneClick = (id) => {
@@ -59,7 +74,7 @@ export const Todo = (props) => {
 
     //Select Data
     const data = useSelector((state)=>state.todo)
-
+    //useEffect Progress bar
     const printState = () =>{
       
        console.log(data);
@@ -73,7 +88,7 @@ return(
                 <input type="time" value={time} onChange={(e)=>setTime(e.target.value)}></input>
                 <select value={priority} onChange={(e)=>{setPriority(e.target.value)}}>
                     <option value="HIGH">HIGH</option>
-                    <option value="MEDIUM">MEDIUM</option>
+                    <option value="MEDIUM" selected>MEDIUM</option>
                     <option value="LOW">LOW</option>
                 </select>
                 <button type="submit">+</button>
@@ -94,9 +109,15 @@ return(
                         <button onClick={()=>{handleDoneClick(item.id)}}>DONE</button>  
                         <input type="text" id="subtaskInput" value={subtask} onChange={(e)=>{setSubtask(e.target.value)}}></input>
                         <button onClick={()=>{handleAddSubtask(item.id)}}></button>
-                        {item.subtasks && item.subtasks.map((item, index)=>(
-                            <p>{item.text}</p>
-                        ))}
+                        {item.subtasks && item.subtasks.map((subtask, index)=>{
+                            if (subtask.completed===false){
+                        return(
+                           <div>
+                                <p>{subtask.text}</p>
+                                <button onClick={()=>{handleCompleteSubtask(item.id, subtask.id)}}>CHECK</button>
+                            </div>
+                        )}
+                        })}
                         
                     </div>
                     )

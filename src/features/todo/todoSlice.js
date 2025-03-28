@@ -23,12 +23,17 @@ const todoSlice = createSlice({
             foundObject.subtasks = [];
             }
             foundObject.subtasks.push(action.payload.task); // pushes object from task key NOT OBJECT CONTAINING ANOTHER **TASK** OBJECT
+        },
+        completeSubtask: (state, action) =>{
+            const foundTaskObject = state.find((obj)=>obj.id===action.payload.id);
+            const foundSubtaskObject = foundTaskObject.subtasks.find((obj)=>obj.id===action.payload.subtaskId);
+            foundSubtaskObject.completed = true;
         }
     }
 })
 
 export const todoReducer = todoSlice.reducer;
-export const {addTodo, completeTodo, addSubtask} = todoSlice.actions;
+export const {addTodo, completeTodo, addSubtask, completeSubtask} = todoSlice.actions;
 
 
 
