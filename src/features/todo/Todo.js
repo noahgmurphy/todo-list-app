@@ -1,17 +1,20 @@
-import React, {useState, useEffect} from 'react';
-import {addTodo, completeTodo, addSubtask, completeSubtask} from './todoSlice.js';
+import React, {useState, useEffect, useRef} from 'react';
+import {addTodo, completeTodo, addSubtask, completeSubtask, changeFilter} from './todoSlice.js';
 import {useDispatch, useSelector} from 'react-redux';
 
 let counter = 0; //Global counter for id
 
 
 export const Todo = (props) => {
+
+    
     const dispatch = useDispatch();
 
-    const[priority, setPriority] = useState();
+    const[priority, setPriority] = useState("MEDIUM");
     const[text, setText] = useState("");
     const[time, setTime] = useState("");
     const[subtask, setSubtask] = useState();
+    
     
     //Genertae id from counter
     
@@ -42,8 +45,8 @@ export const Todo = (props) => {
     }
     }
 
-    const handleAddSubtask = (id) =>{
-        const input = document.getElementById("subtaskInput");
+    const handleAddSubtask = (id, index) =>{
+        const input = document.getElementById("subtaskInput"+index);
         const subtaskId = generateId();
         console.log(subtask);
         if(subtask){
@@ -56,7 +59,8 @@ export const Todo = (props) => {
             }
         }))}
         console.log(subtaskId);
-        setSubtask("");
+        input.value="";
+        //setSubtask("");
         //input.value = "";
     }
     const handleCompleteSubtask = (id, subtaskId) => {
@@ -75,11 +79,73 @@ export const Todo = (props) => {
     //Select Data
     const data = useSelector((state)=>state.todo)
     //useEffect Progress bar
+    useEffect(()=>{
+        //COMPLETEION BAR
+        if(data){
+            let completed = 0;
+            data.map((item)=>{
+            if (item.completed){
+                completed++;
+            }
+        })
+        const percentCompleted = completed/data.length;
+            console.log(percentCompleted); 
+        }
+        //FILTER
+        dispatch(changeFilter({ 
+            priority: "FILTER_PRIORITY"
+        }))
+       
+    }, [data])
+    //
+    //Filter
+       const handleFilter = (filter) => {
+        console.log(filter);
+        dispatch(changeFilter({ 
+            priority: filter
+        }))
+       }
+    //
     const printState = () =>{
       
        console.log(data);
+       
     }
-
+    //SHOW SUBTASK INPUT
+    /* 
+    const handleOffClick = (element, callback) =>{
+        document.addEventListener('click', function(event){
+            if(!element.contains(event.target)){
+                callback(event);
+            }
+        });
+    }
+    */
+    /*
+    const handleShowInput = (e, index) =>{
+        
+        
+        myElement.current.style.display = "block";
+    }
+    */
+    //HANDLE OUTSIDE INPUT CLICK
+    /*
+    useEffect(()=>{
+        function handleClickOutside(event){
+            if (myElement && myElement.current && !myElement.current.contains(event.target)){
+                console.log("CLICKED OUTSIDE");
+                
+                
+                
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+        
+        document.removeEventListener('mousedown', handleClickOutside);
+    };
+    }, [])
+    */
 return(
     <div>
         <div>
@@ -106,9 +172,23 @@ return(
                             {item.text}
                             {item.time}
                         </li>
-                        <button onClick={()=>{handleDoneClick(item.id)}}>DONE</button>  
-                        <input type="text" id="subtaskInput" value={subtask} onChange={(e)=>{setSubtask(e.target.value)}}></input>
-                        <button onClick={()=>{handleAddSubtask(item.id)}}></button>
+                        <button onClick={()=>{handleDoneClick(item.id)}}>DONE</button>
+                        <button onClick={()=>{
+                           const subElement = document.getElementById("subtask-container"+index)
+                           if (subElement.style.display === "none"){
+                            subElement.style.display="block";
+                           }
+                           else subElement.style.display="none";
+                        }
+                        }>ADD SUBTASK</button>
+                        <div id={"subtask-container"+index} style={{display: "none"}}>
+                            <input type="text" id={"subtaskInput"+index} onChange={(e)=>{setSubtask(e.target.value)}}></input>
+                        </div>  
+                        <button onClick={()=>{
+                                handleAddSubtask(item.id, index);
+                                
+                                document.getElementById("subtask-container"+index).style.display="none";
+                            }}></button>
                         {item.subtasks && item.subtasks.map((subtask, index)=>{
                             if (subtask.completed===false){
                         return(
@@ -125,9 +205,15 @@ return(
                 )
             }
             </ul>
+            <h3>FILTER:</h3>
+            <select onChange={(e)=>{handleFilter(e.target.value)}}>
+                <option value="FILTER_NONE" selected>NONE</option>
+                <option value="FILTER_HIGH_PRIORITY">HIGH PRIORITY FILTER</option>
+                <option value="FILTER_LOW_PRIORITY"> LOW PRIORITY FILTER</option>
+            </select>
         </div>
         <div>
-            <h2>COMPLETED</h2>
+            <h3>COMPLETED</h3>
             <ul>
                 {data.length > 0 && data.map((item, index)=>{
                 if(item.completed===true){

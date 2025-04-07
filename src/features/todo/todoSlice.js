@@ -28,12 +28,74 @@ const todoSlice = createSlice({
             const foundTaskObject = state.find((obj)=>obj.id===action.payload.id);
             const foundSubtaskObject = foundTaskObject.subtasks.find((obj)=>obj.id===action.payload.subtaskId);
             foundSubtaskObject.completed = true;
+        },
+        changeFilter: (state, action) =>{
+            if (action.payload.priority==="FILTER_HIGH_PRIORITY"){
+                state.sort((a, b)=>{
+                  if (a.priority==="HIGH" && (b.priority==="MEDIUM" || b.priority==="LOW")){
+                      return -1;
+                  }
+                  if (a.priority==="MEDIUM" && b.priority==="LOW"){
+                      return -1;
+                  }
+                  if(b.priority==="HIGH"&&(a.priority==="MEDIUM"||a.priority==="LOW")){
+                      return 1;
+                  }
+                  if(b.priority==="MEDIUM"&&a.priority==="LOW"){
+                      return 1;
+                  }
+                  return 0;
+                })  
+              }
+              if (action.payload.priority==="FILTER_LOW_PRIORITY"){
+                state.sort((a, b)=>{
+                  if (a.priority==="HIGH" && (b.priority==="MEDIUM" || b.priority==="LOW")){
+                      return  1;
+                  }
+                  if (a.priority==="MEDIUM" && b.priority==="LOW"){
+                      return 1;
+                  }
+                  if(b.priority==="HIGH"&&(a.priority==="MEDIUM"||a.priority==="LOW")){
+                      return -1;
+                  }
+                  if(b.priority==="MEDIUM"&&a.priority==="LOW"){
+                      return -1;
+                  }
+                  return 0;
+                })  
+              }
         }
+
     }
+    
+    /*  ,
+    extraReducers: (builder) => {
+        builder.addCase(changeFilter, (state, action)=>{
+            if (action.payload==="FILTER_PRIORITY"){
+              state.sort((a, b)=>{
+                if (a.priority==="HIGH" && (b.priority==="MEDIUM" || b.priority==="LOW")){
+                    return 1;
+                }
+                if (a.priority==="MEDIUM" && b.priority==="LOW"){
+                    return 1;
+                }
+                if(b.priority==="HIGH"&&(a.priority==="MEDIUM"||a.priority==="LOW")){
+                    return -1;
+                }
+                if(b.priority==="MEDIUM"&&a.priority==="LOW"){
+                    return -1;
+                }
+                return 1;
+              })  
+            }
+            
+        })
+    }
+    */
 })
 
 export const todoReducer = todoSlice.reducer;
-export const {addTodo, completeTodo, addSubtask, completeSubtask} = todoSlice.actions;
+export const {addTodo, completeTodo, addSubtask, completeSubtask, changeFilter} = todoSlice.actions;
 
 
 
