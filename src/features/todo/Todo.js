@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {addTodo, completeTodo, addSubtask, completeSubtask, changeFilter} from './todoSlice.js';
+import {addTodo, completeTodo, addSubtask, completeSubtask, changeFilter, rearrangeList} from './todoSlice.js';
 import {useDispatch, useSelector} from 'react-redux';
 
 let counter = 0; //Global counter for id
@@ -146,6 +146,35 @@ export const Todo = (props) => {
     };
     }, [])
     */
+    
+    /*REARANGE DRAG AND DROP*/
+    /*const parentContainer = document.getElementById("list-container");
+    if(parentContainer){
+    parentContainer.addEventListener("dragstart", function(event){
+        if (event.target.matches(".list-item")){
+            console.log("DRAG STARTED");
+            event.dataTransfer.setData("text", event.target.id);
+        }
+    })}
+    */
+    function drag(event){
+        if (event.target.matches(".list-item")){
+            console.log("DRAG STARTED");
+            event.dataTransfer.setData("text", event.target.id);
+        }
+    }
+    function drop(event){
+        event.preventDefault();
+        const id1 = event.dataTransfer.getData("text");
+        
+        const id2 = event.target.id;
+        dispatch(rearrangeList({id1: id1, id2: id2}))
+    }
+    function allowDrop(event){
+        event.target.style.color="blue";
+        event.preventDefault();;
+    }
+
 return(
     <div>
         <div>
@@ -162,13 +191,13 @@ return(
             
             <button onClick={printState}>PRINT</button>
         </div>
-        <div>
+        <div id="list-container">
             <ul>
                 {data.length > 0 && data.map((item, index)=>{
                 if(item.completed===false){
                     return(
-                    <div key={index}>
-                        <li style={{backgroundColor: item.priority==='HIGH'? 'red': item.priority==='MEDIUM'? 'orange' : 'green'}} id={item.id}>
+                    <div key={index} >
+                        <li className="list-item" onDragStart={drag} onDrop={drop} onDragOver={allowDrop} draggable="true" style={{backgroundColor: item.priority==='HIGH'? 'red': item.priority==='MEDIUM'? 'orange' : 'green'}} id={item.id}>
                             {item.text}
                             {item.time}
                         </li>

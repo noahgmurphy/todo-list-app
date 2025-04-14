@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
+import { current } from '@reduxjs/toolkit';
 
 const initialTodo = []
 
@@ -64,6 +65,18 @@ const todoSlice = createSlice({
                   return 0;
                 })  
               }
+        },
+        rearrangeList:(state,action)=>{
+            console.log("REARRANGE CALLED");
+            const {id1, id2} = action.payload;
+            console.log(current(state));
+            console.log(id1);
+            console.log(id2);
+            const index1 = state.findIndex(obj=>obj.id==id1);
+            const index2 = state.findIndex(obj=>obj.id==id2);
+            console.log(index1);
+            console.log(index2);
+            [state[index1], state[index2]] = [state[index2], state[index1]];
         }
 
     }
@@ -95,7 +108,7 @@ const todoSlice = createSlice({
 })
 
 export const todoReducer = todoSlice.reducer;
-export const {addTodo, completeTodo, addSubtask, completeSubtask, changeFilter} = todoSlice.actions;
+export const {addTodo, completeTodo, addSubtask, completeSubtask, changeFilter, rearrangeList} = todoSlice.actions;
 
 
 
