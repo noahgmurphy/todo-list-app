@@ -1,0 +1,158 @@
+*{
+    font-family: Josefin-Slab ;
+}
+.parentContainer{
+    background-color: #6F89CC;
+    width: 85%;
+    height: 1000px;
+    margin: auto;
+    position: relative;
+    top: 100px;
+}
+
+.formContainer{
+    height: 10%;
+    margin: auto;
+    text-align: center;
+}
+
+
+
+/*FORM*/
+form{
+    position: relative;
+    top: 20%;
+   
+    height: 70%;
+}
+.textInput{
+    width: 40%;
+    height: 50%;
+    border-radius: 30px;
+    border: 1px solid silver;
+    margin-right: 30px;
+    font-size: 20px;
+}
+.timeInput{
+    height: 50%;
+    width: 8%;
+    border-radius: 30px;
+    border: 1px solid silver;
+    margin-right: 30px;
+    
+}
+.priorityInput{
+    height: 50%;
+    width: 12%;
+    border-radius: 30px;
+    border: 1px solid silver;
+}
+.submitButton{
+    width: 15%;
+    border-radius: 30PX;
+    border: 1px solid silver;
+    display: block;
+    margin: auto;
+    position: relative;
+    top: 20%;
+}
+
+/*UNCOMPLETED TODOS*/
+.list{
+    
+    height: 40%;
+    width: 80%;
+    margin: auto;
+    border-radius: 30px;
+    background-color: white;
+    overflow-y: scroll;
+    overflow-wrap: break-word;
+    scrollbar-width: none;
+    
+}
+
+.todoItem{
+    margin: 5px;
+    position: relative;
+    top: 10px;
+    border-radius: 30px;
+    padding-left: 20px;
+}
+
+.buttonContainer{
+    height: 18px;
+    display: inline;
+    position: absolute;
+    left: 75%;
+    
+    
+}
+.doneButton{
+    height: 80%;
+}
+.addSubtaskButton{
+    height: 80%;
+}
+.dragSymbol{
+    display: inline;
+    vertical-align: top;
+    
+}
+.taskText{
+    display: inline;
+   
+    padding-right: 10px;
+    padding-left: 10px;
+   
+   
+}
+.taskContainer{
+    display: inline-block;
+    width: 100px;
+    white-space: pre-wrap;
+    text-align: center;
+}
+.timeContainer{
+    
+    
+    margin: auto; 
+    display: inline;
+    position: absolute;
+    left: 44%;
+  
+}
+.taskTime{
+    
+    padding-left: 10px;
+    display: inline;
+   
+    
+}
+
+/*SUBTASKS*/
+.subtaskInputContainer{
+    position:relative;
+    left: 2%;
+}
+.subtaskInput{
+    background: transparent;
+    border: none;
+    height: 5px;
+}
+.subtaskInput::placeholder{
+    color: black;
+}
+.subtaskContainer{
+    position: relative;
+    left: 2%;
+}
+
+.subtaskText{
+    display: inline;
+    margin-right: 5%;
+}
+.completeSubtaskButton{
+    display: inline;
+    margin-right: 10px;
+    margin-left: 10px;
+}
