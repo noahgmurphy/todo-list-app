@@ -7,7 +7,7 @@ let counter = 0; //Global counter for id
 
 
 export const Todo = (props) => {
-
+    
     const classForListItem = 'list-item';
     const dispatch = useDispatch();
 
@@ -15,6 +15,7 @@ export const Todo = (props) => {
     const[text, setText] = useState("");
     const[time, setTime] = useState("");
     const[subtask, setSubtask] = useState();
+    const[percentCompleted, setPercentCompleted] = useState(0);
     
     
     //Genertae id from counter
@@ -90,7 +91,7 @@ export const Todo = (props) => {
                 completed++;
             }
         })
-        const percentCompleted = completed/data.length;
+        setPercentCompleted ((completed/data.length)*100);
             console.log(percentCompleted); 
         }
         //FILTER
@@ -268,31 +269,40 @@ return(
             
             
         </div>
-        <div>
-        <h3>FILTER:</h3>
-            <select onChange={(e)=>{handleFilter(e.target.value)}}>
-                <option value="FILTER_NONE" selected>NONE</option>
-                <option value="FILTER_HIGH_PRIORITY">HIGH PRIORITY FILTER</option>
-                <option value="FILTER_LOW_PRIORITY"> LOW PRIORITY FILTER</option>
-            </select>
-            <h3>COMPLETED</h3>
-            <ul>
-                {data.length > 0 && data.map((item, index)=>{
-                if(item.completed===true){
-                    return(
-                    <div key={index}>
-                        <li id={item.id}>
-                            {item.text}
-                        </li>
-                        
-                         
-                    </div>
-                    )
-                }}
-                )
-            }
-            </ul>
+        <div className={styles.percentContainer}>
+            <div className={styles.percentFill} style={{width:`${percentCompleted}%`}}>
+            </div>
         </div>
+        <div>
+            <div className={styles.filterContainer}>
+                <h3 className={styles.filterText}>FILTER:</h3>
+                <select className={styles.filterOptions} onChange={(e)=>{handleFilter(e.target.value)}}>
+                    <option value="FILTER_NONE" selected>NONE</option>
+                    <option value="FILTER_HIGH_PRIORITY">HIGH PRIORITY FILTER</option>
+                    <option value="FILTER_LOW_PRIORITY"> LOW PRIORITY FILTER</option>
+                </select>
+            </div>
+            <div className={styles.completedContainer}>
+                <h3>COMPLETED</h3>
+                
+                    {data.length > 0 && data.map((item, index)=>{
+                    if(item.completed===true){
+                        return(
+                        <div key={index}>
+                            <p id={item.id}>
+                                {item.text}
+                            </p>
+                            
+                            
+                        </div>
+                        )
+                    }}
+                    )
+                }
+                
+            </div>
+        </div>
+        
         <button onClick={printState}>PRINT</button>
     </div>
     )

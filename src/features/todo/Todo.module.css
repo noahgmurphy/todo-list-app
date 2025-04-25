@@ -156,3 +156,50 @@ form{
     margin-right: 10px;
     margin-left: 10px;
 }
+
+
+/*FILTER*/
+
+.filterContainer{
+    margin: auto;
+    text-align: center;
+}
+.filterText{
+    display: inline;
+    margin-right: 5px;
+}
+.filterOptions{
+    display: inline;
+    position: relative;
+    bottom: 2px;
+}
+
+/*COMPLETED*/
+.completedContainer{
+    height: 400px;
+    width: 80%;
+    margin: auto;
+    border-radius: 30px;
+    background-color: white;
+    overflow-y: scroll;
+    overflow-wrap: break-word;
+    scrollbar-width: none;
+    text-align: center;
+}
+
+/*COMPLETION BAR*/
+.percentContainer{
+    background-color: darkgrey;
+    width: 80%;
+    height: 1%;
+    margin: auto;
+    border-radius: 30px;
+    margin-top: 5px;
+}
+.percentFill{
+    background-color: greenyellow;
+    height: 100%;
+    
+    margin-right:auto;
+    border-radius: 30px;
+}
