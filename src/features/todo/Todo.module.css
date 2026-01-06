@@ -77,13 +77,22 @@ form{
     top: 10px;
     border-radius: 30px;
     padding-left: 20px;
+    height: auto;
+    overflow: auto;
+    
 }
 
 .buttonContainer{
     height: 18px;
+    
     display: inline;
-    position: absolute;
-    left: 75%;
+    
+    position: relative;
+    float: right;
+    right: 20px;
+    
+    
+    
     
     
 }
@@ -128,6 +137,9 @@ form{
    
     
 }
+.deleteTaskButton{
+    height: 80%;
+}
 
 /*SUBTASKS*/
 .subtaskInputContainer{
@@ -144,7 +156,9 @@ form{
 }
 .subtaskContainer{
     position: relative;
+    width: 250px;
     left: 2%;
+    text-align: left;
 }
 
 .subtaskText{
@@ -202,4 +216,17 @@ form{
     
     margin-right:auto;
     border-radius: 30px;
+}
+
+/*MEDIA QUERIES*/
+
+@media only screen and (max-width:574px){
+   .taskText{
+    position: relative;
+    right: 20%;
+   } 
+   .buttonContainer{
+    margin-bottom: 2%;
+   }
+   
 }

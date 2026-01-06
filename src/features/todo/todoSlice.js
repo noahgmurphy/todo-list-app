@@ -16,6 +16,11 @@ const todoSlice = createSlice({
                 completed: true 
             } : item)
         },
+        deleteTodo: (state, action) =>{
+            console.log(action.payload)
+            return state.filter((item)=>item.id != action.payload.id);
+            
+        },
         addSubtask: (state, action) => {
             console.log("called");
             const foundObject = state.find((obj)=>obj.id===action.payload.id);
@@ -108,7 +113,7 @@ const todoSlice = createSlice({
 })
 
 export const todoReducer = todoSlice.reducer;
-export const {addTodo, completeTodo, addSubtask, completeSubtask, changeFilter, rearrangeList} = todoSlice.actions;
+export const {addTodo, completeTodo, deleteTodo, addSubtask, completeSubtask, changeFilter, rearrangeList} = todoSlice.actions;
 
 
 

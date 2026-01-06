@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {addTodo, completeTodo, addSubtask, completeSubtask, changeFilter, rearrangeList} from './todoSlice.js';
+import {addTodo, completeTodo, deleteTodo, addSubtask, completeSubtask, changeFilter, rearrangeList} from './todoSlice.js';
 import {useDispatch, useSelector} from 'react-redux';
 import styles from './Todo.module.css';
 
@@ -77,6 +77,11 @@ export const Todo = (props) => {
     const handleDoneClick = (id) => {
             console.log(id);
             dispatch(completeTodo({id:id}))
+    }
+
+    const handleDelete = (id) =>{
+        console.log(id);
+        dispatch(deleteTodo({id:id}));
     }
 
     //Select Data
@@ -242,6 +247,10 @@ return(
                            else subElement.style.display="none";
                         }
                         }>ADD SUBTASK</button>
+                        <button className={styles.deleteTaskButton} onClick = {()=>{
+                            handleDelete(item.id)
+                        }}>DELETE</button>
+                        
                         </div>
                         {item.subtasks && item.subtasks.map((subtask, index)=>{
                             if (subtask.completed===false){
