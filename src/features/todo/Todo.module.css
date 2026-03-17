@@ -9,20 +9,15 @@
     position: relative;
     top: 100px;
 }
-
 .formContainer{
     height: 10%;
     margin: auto;
     text-align: center;
 }
-
-
-
 /*FORM*/
 form{
     position: relative;
     top: 20%;
-   
     height: 70%;
 }
 .textInput{
@@ -39,7 +34,6 @@ form{
     border-radius: 30px;
     border: 1px solid silver;
     margin-right: 30px;
-    
 }
 .priorityInput{
     height: 50%;
@@ -56,10 +50,8 @@ form{
     position: relative;
     top: 20%;
 }
-
 /*UNCOMPLETED TODOS*/
 .list{
-    
     height: 40%;
     width: 80%;
     margin: auto;
@@ -68,9 +60,7 @@ form{
     overflow-y: scroll;
     overflow-wrap: break-word;
     scrollbar-width: none;
-    
 }
-
 .todoItem{
     margin: 5px;
     position: relative;
@@ -81,20 +71,12 @@ form{
     overflow: auto;
     
 }
-
 .buttonContainer{
     height: 18px;
-    
     display: inline;
-    
     position: relative;
     float: right;
     right: 20px;
-    
-    
-    
-    
-    
 }
 .doneButton{
     height: 80%;
@@ -105,15 +87,11 @@ form{
 .dragSymbol{
     display: inline;
     vertical-align: top;
-    
 }
 .taskText{
     display: inline;
-   
     padding-right: 10px;
     padding-left: 10px;
-   
-   
 }
 .taskContainer{
     display: inline-block;
@@ -122,25 +100,18 @@ form{
     text-align: center;
 }
 .timeContainer{
-    
-    
     margin: auto; 
     display: inline;
     position: absolute;
     left: 44%;
-  
 }
 .taskTime{
-    
     padding-left: 10px;
     display: inline;
-   
-    
 }
 .deleteTaskButton{
     height: 80%;
 }
-
 /*SUBTASKS*/
 .subtaskInputContainer{
     position:relative;
@@ -160,7 +131,6 @@ form{
     left: 2%;
     text-align: left;
 }
-
 .subtaskText{
     display: inline;
     margin-right: 5%;
@@ -170,10 +140,7 @@ form{
     margin-right: 10px;
     margin-left: 10px;
 }
-
-
 /*FILTER*/
-
 .filterContainer{
     margin: auto;
     text-align: center;
@@ -187,7 +154,6 @@ form{
     position: relative;
     bottom: 2px;
 }
-
 /*COMPLETED*/
 .completedContainer{
     height: 400px;
@@ -200,7 +166,6 @@ form{
     scrollbar-width: none;
     text-align: center;
 }
-
 /*COMPLETION BAR*/
 .percentContainer{
     background-color: darkgrey;
@@ -213,13 +178,11 @@ form{
 .percentFill{
     background-color: greenyellow;
     height: 100%;
-    
     margin-right:auto;
     border-radius: 30px;
 }
 
 /*MEDIA QUERIES*/
-
 @media only screen and (max-width:574px){
    .taskText{
     position: relative;
@@ -228,5 +191,4 @@ form{
    .buttonContainer{
     margin-bottom: 2%;
    }
-   
 }
