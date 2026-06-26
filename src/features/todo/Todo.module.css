@@ -96,6 +96,7 @@ form{
 .taskContainer{
     display: inline-block;
     width: 100px;
+    margin-left: 2%;
     white-space: pre-wrap;
     text-align: center;
 }
@@ -116,20 +117,24 @@ form{
 .subtaskInputContainer{
     position:relative;
     left: 2%;
+    width: 90%;
 }
 .subtaskInput{
     background: transparent;
     border: none;
-    height: 5px;
+    height: 10%;
 }
 .subtaskInput::placeholder{
     color: black;
 }
 .subtaskContainer{
+    height: auto;
     position: relative;
     width: 250px;
     left: 2%;
     text-align: left;
+    clear: both;
+    margin-top: 8px;
 }
 .subtaskText{
     display: inline;

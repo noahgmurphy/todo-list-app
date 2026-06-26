@@ -87,12 +87,6 @@ export const Todo = (props) => {
             })
             setPercentCompleted ((completed/data.length)*100);
         }
-        //FILTER
-        /*
-        dispatch(changeFilter({ 
-            priority: priority
-        }))
-        */
     }, [data])
     
     //Filter
@@ -104,7 +98,6 @@ export const Todo = (props) => {
 
     function drag(event){
         if (event.target.matches(".list-item")){
-            console.log("DRAG STARTED");
             event.dataTransfer.setData("text", event.target.id);
         }
     }
